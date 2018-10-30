@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Insurance company</title>
+    <script src="js/Helper.js"></script>
+    <script src="js/Risk.js"></script>
+    <script src="js/Policy.js"></script>
+    <script src="js/InsuranceCompany.js"></script>
+</head>
+<body>
+<script>
+    let fireRisk = new Risk('Fire', 50);
+    let theftRisk = new Risk('Theft', 100);
+    let availableRisks = [fireRisk, theftRisk];
+    let company = new InsuranceCompany();
+    company.setAvailableRisks(availableRisks);
+    // let policyStartDate = new Date(2019, 01, 01);
+    // Amending policy start date because Date starts counting months from 0,
+    // so '01' is technically February and that policy would end in Jan, not Dec.
+    let policyStartDate = new Date(2019, 0, 01);
+    let policyEndDate = new Date(2019, 12, 31);
+
+    let policy = company.sellPolicy('Garage', policyStartDate, 12, [theftRisk]);
+    console.info(`Insured object name is '${policy.nameOfInsuredObject}' and should be 'Garage'.`);
+    console.info(`Policy end date is '${policy.validTillFormatted}' and should be '2019-12-31'.`);
+    console.info(`Policy premium is '${policy.premium}' and should be 100.`);
+    console.info(`There are '${policy.insuredRisks.length}' risks and should be 1 risk in the policy.`);
+</script>
+</body>
+</html>
